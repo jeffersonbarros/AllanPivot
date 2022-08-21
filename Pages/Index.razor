@@ -1,0 +1,323 @@
+﻿@page "/"
+@using System.IO
+@using Syncfusion.XlsIO
+@using Syncfusion.XlsIO.Implementation
+@using System.Text.RegularExpressions
+@inject NavigationManager NavigationManager 
+
+<PageTitle>AllanPivot</PageTitle>
+
+
+
+<div class="container">
+    <div class="row">
+        <h1>CSV para XLSX e Tabela Dinâmica</h1>
+        <div class="col-3">
+            <label>Separador de coluna CSV:</label>
+        </div>
+        <div class="col-1">
+            <SfTextBox Placeholder='Separador do CSV' Value="@CSVSeparator" required></SfTextBox>
+        </div>
+
+        <br />
+        <SfUploader AutoUpload="false" AllowMultiple=false AllowedExtensions=".csv">
+            <UploaderEvents ValueChange="OnChange" OnRemove="onRemove"></UploaderEvents>
+        </SfUploader>
+
+        <br />
+        <br />
+        <SfButton Disabled="@disableConvert" OnClick="ConvertToDynamic">Converter para tabela dinâmica</SfButton>
+
+        @if (linkShow)
+        {
+            <br />
+            <br />
+
+               @* <a href="@linkPath">Tabela Dinâmica</a>*@
+                <SfButton IsPrimary="true" OnClick="Download">Clique para download</SfButton>
+
+     
+        }
+    </div>
+ </div>
+
+
+
+
+
+@code {
+    private string _fileUploaded;
+    private Boolean disableConvert = true;
+    private string CSVSeparator = ";";
+    private Boolean linkShow = false;
+    private string linkPath;
+
+    private void Download()
+    {
+        NavigationManager.NavigateTo(linkPath, true);
+    }
+
+    private void OnChange(UploadChangeEventArgs args)
+    {
+        foreach (var file in args.Files)
+        {
+            var path =  @"wwwroot/data/" + file.FileInfo.Name;
+            FileStream filestream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            file.Stream.WriteTo(filestream);
+            filestream.Close();
+            file.Stream.Close();
+
+            _fileUploaded = path;
+
+        }
+        disableConvert = false;
+    }
+
+    private void onRemove(RemovingEventArgs args)
+    {
+        foreach (var removeFile in args.FilesData)
+        {
+            if (File.Exists(Path.Combine(@"wwwroot/data/", removeFile.Name)))
+            {
+                File.Delete(Path.Combine(@"wwwroot/data/", removeFile.Name));
+                disableConvert = true;
+            }
+        }
+    }
+
+    private void ConvertToDynamic()
+    {
+        using (ExcelEngine excelEngine = new ExcelEngine())
+        {
+            IApplication application = excelEngine.Excel;
+            application.DefaultVersion = ExcelVersion.Excel2016;
+
+            application.PreserveCSVDataTypes = true;
+            application.CSVSeparator = CSVSeparator;
+
+            Stream csvStream = File.OpenRead(Path.GetFullPath(_fileUploaded));
+
+            //Lendo o CSV e jogando na planilha base
+            IWorkbook workbook = application.Workbooks.Open(csvStream);
+            IWorksheet baseSheet = workbook.Worksheets[0];
+            baseSheet.Name = "Base";
+
+            //Formatando o CSV como uma tabela
+            IListObject table = baseSheet.ListObjects.Create("Base", baseSheet.UsedRange);
+            table.BuiltInTableStyle = TableBuiltInStyles.TableStyleMedium6;
+            IRange location = table.Location;
+            location.AutofitColumns();
+
+
+            //Aplicando o formato de dinheiro na coluna de total
+            IRange columnRange = GetListObjectColumnRange(table, "valortotal");
+            if (columnRange != null)
+                columnRange.CellStyle.NumberFormat = "R$ #,##0.00";
+
+            // criando a tabela dinamica
+            IWorksheet pivotSheet = workbook.Worksheets.Create("Planilha de Vendas");
+
+
+
+            IPivotCache cache = workbook.PivotCaches.Add(baseSheet.UsedRange);
+
+            IPivotTable pivotTable = pivotSheet.PivotTables.Add("TabelaDinamica1", pivotSheet["A1"], cache);
+
+            pivotTable.Fields[1].Axis = PivotAxisTypes.Row;
+            pivotTable.Fields[1].NumberFormat = "R$ #,##0.00";
+            pivotTable.Fields[2].Axis = PivotAxisTypes.Column;
+            pivotTable.Fields[2].NumberFormat = "R$ #,##0.00";
+            ////Add data field
+            IPivotField field = pivotTable.Fields[4];
+            field.NumberFormat = "R$ #,##0.00";
+            pivotTable.DataFields.Add(field, "Soma de valor total", PivotSubtotalTypes.Sum);
+
+            pivotTable.BuiltInStyle = PivotBuiltInStyles.PivotStyleMedium6;
+
+
+            // se for fazer tudo no braço sem uso de tabela dinamica
+            // comentar acima a partir do Pivot e descomentar abaixo
+
+            //IWorksheet sheetPivot = workbook.Worksheets.Create("Planilha de Vendas");          
+
+
+            //sheetPivot[1, 1].Text = "Soma de valor total";
+            //sheetPivot[1, 1].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //sheetPivot[1, 1].CellStyle.Font.Bold = true;
+
+            //sheetPivot[1, 2].Text = "Rótulos de coluna";
+            //sheetPivot[1, 2].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //sheetPivot[1, 2].CellStyle.Font.Bold = true;
+
+            //sheetPivot[2, 1].Text = "Rótulos de linha";
+            //sheetPivot[2, 1].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //sheetPivot[2, 1].CellStyle.Font.Bold = true;
+            //sheetPivot.AutofitColumn(1);
+            //sheetPivot.AutofitColumn(2);
+            //// criacao de uma lista base para agrupar os dados
+
+            //List<CSVBase> listBase = File.ReadAllLines(_fileUploaded)
+            //                .Skip(1)
+            //                .Select(v => CSVBase.FromCSV(v, ";"))                        
+            //                .ToList();
+
+            //// agrupamento de vendedores
+
+            //var listCSVGroup = (from regSale in listBase
+            //                    group regSale by regSale.Vendedor into listGroup
+            //                    orderby listGroup.Key ascending
+            //                    select new CSVBaseGroupSale
+            //                    { Vendedor = listGroup.First().Vendedor }).ToList(); 
+
+
+            //var col = 2;
+            //foreach (var sale in listCSVGroup)
+            //{
+            //    sheetPivot[2, col].Text = /*sale.ColId.ToString() + "-" + */sale.Vendedor;
+            //    sheetPivot[2, col].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //    sheetPivot[2, col].CellStyle.Font.Bold = true;
+            //    sheetPivot.AutofitColumn(col);
+            //    col++;
+            //}
+
+            //sheetPivot[2, col].Text = "Total Geral";
+            //sheetPivot[2, col].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //sheetPivot[2, col].CellStyle.Font.Bold = true;
+            //sheetPivot.AutofitColumn(col);
+
+
+            //// agrupando pelo o valor total do vendedor/cliente
+            //var listCSVGroupTotal = (from regSale in listBase
+            //                         group regSale by new { regSale.Cliente, regSale.Vendedor } into listGroup
+            //                         select new CSVBaseGroupClient
+            //                            {
+            //                                Cliente = listGroup.First().Cliente,
+            //                                Vendedor = listGroup.First().Vendedor,
+            //                                TotalGeral = listGroup.Sum(g => g.ValorTotal)
+            //                            }).OrderBy(t => t.Cliente).ToList();
+
+            //var row = 3;
+
+            //// agrupando clientes
+            //var listCSVClients = from regSale in listBase
+            //                     group regSale by regSale.Cliente into listGroup
+            //                     orderby listGroup.Key
+            //                     select listGroup;
+
+            //var colSale = 2;
+            //var columnName = "";
+            //foreach (var clients in listCSVClients)
+            //{
+
+            //    foreach (var client in clients)
+            //    {
+            //        sheetPivot[row, 1].Text = client.Cliente;
+            //        colSale = listCSVGroup.FindIndex(c => c.Vendedor == client.Vendedor)+2;
+
+            //        foreach (var sale in listCSVGroup)
+            //        { 
+            //            sheetPivot[row, colSale].CellStyle.NumberFormat = "R$ #,##0.00";
+            //            sheetPivot[row, colSale].Value = "0";
+            //        }
+
+            //        sheetPivot[row, colSale].CellStyle.NumberFormat = "R$ #,##0.00";
+            //        sheetPivot[row, colSale].Value = listCSVGroupTotal.Where(c => (c.Cliente == client.Cliente) && (c.Vendedor == client.Vendedor)).First().TotalGeral.ToString();
+            //        sheetPivot.AutofitColumn(colSale);
+
+            //        columnName = sheetPivot.Columns[col - 2].Address;
+            //        columnName = columnName.Substring(columnName.Length - 2, 1);
+            //        sheetPivot[row, col].CellStyle.NumberFormat = "R$ #,##0.00";
+            //        sheetPivot[row, col].Formula = "=SUM(B" + row.ToString() + ":" + columnName + row.ToString() + ")";
+            //        sheetPivot.AutofitColumn(col);
+            //    }   
+
+            //    row++;               
+            //}
+
+
+
+            //sheetPivot[row, 1].Text = "Total Geral";
+            //sheetPivot[row, 1].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //sheetPivot[row, 1].CellStyle.Font.Bold = true;
+            //sheetPivot.AutofitColumn(1);
+
+            //for (var colTotal = 2; colTotal <= col; colTotal++)
+            //{
+            //    sheetPivot[row, colTotal].CellStyle.NumberFormat = "R$ #,##0.00";
+            //    sheetPivot[row, colTotal].CellStyle.Color = Syncfusion.Drawing.Color.LightSkyBlue;
+            //    sheetPivot[row, colTotal].CellStyle.Font.Bold = true;
+            //    columnName = sheetPivot.Columns[colTotal-1].Address;
+            //    columnName = columnName.Substring(columnName.Length - 2, 1);
+            //    sheetPivot[row, colTotal].Formula = "=SUM(" + columnName + "3:" + columnName + (row - 1).ToString() + ")";
+            //    sheetPivot.AutofitColumn(colTotal);
+            //}
+            //sheetPivot.AutofitColumn(col);
+
+
+            Stream excelStream;
+            excelStream = File.Create(Path.GetFullPath(@"wwwroot/data/AllanPivotResult.xlsx"));
+            workbook.SaveAs(excelStream);
+            excelStream.Dispose();
+            csvStream.Dispose();
+            linkShow = true;
+            linkPath = "http://localhost:5259/data/AllanPivotResult.xlsx";
+        }
+    }
+
+    private static IRange GetListObjectColumnRange(IListObject table, string name)
+    {
+        IListObjectColumn column = table.Columns.FirstOrDefault(x => x.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase));
+        if (column != null)
+        {
+            IRange location = table.Location;
+            return location.Worksheet[location.Row + 1, location.Column + column.Index - 1, location.LastRow, location.Column + column.Index - 1];
+        }
+        else
+            return null;
+    }
+
+    public class CSVBase
+    {
+        public int Venda { get; set; }
+        public string Cliente { get; set; }
+        public string Vendedor { get; set; }
+        public string Produto { get; set; }
+        public decimal ValorTotal { get; set; }
+
+        public static CSVBase FromCSV(string csvline, string csvseparator)
+        {
+            string[] values = csvline.Split(csvseparator);
+            CSVBase baseValues = new CSVBase();
+            baseValues.Venda = Convert.ToInt32(values[0]);
+            baseValues.Cliente = Convert.ToString(values[1]);
+            baseValues.Vendedor = Convert.ToString(values[2]);
+            baseValues.Produto = Convert.ToString(values[3]);
+            baseValues.ValorTotal = Convert.ToDecimal(values[4]);
+            return baseValues;
+        }
+    }
+
+    public class CSVBaseGroupClient
+    {
+        public string Cliente { get; set; }
+        public string Vendedor { get; set; }
+        public decimal TotalGeral { get; set; }
+    }
+
+    public class CSVBaseGroupSale
+    {
+        //private static object sync = new object();
+//        public int ColId { get; private set; }
+        public string Vendedor { get; set; }
+  //      public static int globalColID = 0;
+
+        //public CSVBaseGroupSale(string vendedor)
+        //{
+        //    Vendedor = vendedor;
+
+        //        this.ColId = ++globalColID;
+
+        //}
+    }
+
+}
