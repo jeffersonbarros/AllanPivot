@@ -211,7 +211,7 @@
     <value>Cancelar</value>
   </data>
   <data name="Uploader_Clear" xml:space="preserve">
-    <value>Claro</value>
+    <value>Limpar</value>
   </data>
   <data name="Uploader_Delete" xml:space="preserve">
     <value>Excluir arquivo</value>
@@ -244,7 +244,7 @@
     <value>Pronto para carregar</value>
   </data>
   <data name="Uploader_Remove" xml:space="preserve">
-    <value>Retirar</value>
+    <value>Remover</value>
   </data>
   <data name="Uploader_RemovedFailedMessage" xml:space="preserve">
     <value>Não foi possível remover o arquivo</value>
@@ -253,13 +253,13 @@
     <value>Arquivo removido com sucesso</value>
   </data>
   <data name="Uploader_Resume" xml:space="preserve">
-    <value>Currículo</value>
+    <value>Resumo</value>
   </data>
   <data name="Uploader_Retry" xml:space="preserve">
     <value>Repetir</value>
   </data>
   <data name="Uploader_Upload" xml:space="preserve">
-    <value>Envio</value>
+    <value>Enviar</value>
   </data>
   <data name="Uploader_UploadFailedMessage" xml:space="preserve">
     <value>Falha no upload do arquivo</value>
@@ -271,7 +271,7 @@
     <value>Nova pasta</value>
   </data>
   <data name="FileManager_Upload" xml:space="preserve">
-    <value>Envio</value>
+    <value>Enviar</value>
   </data>
   <data name="FileManager_Delete" xml:space="preserve">
     <value>Excluir</value>
@@ -319,7 +319,7 @@
     <value>Nova pasta</value>
   </data>
   <data name="FileManager_TooltipUpload" xml:space="preserve">
-    <value>Envio</value>
+    <value>Enviar</value>
   </data>
   <data name="FileManager_TooltipDelete" xml:space="preserve">
     <value>Excluir</value>
@@ -4642,131 +4642,131 @@
     <value>Continue com o próximo</value>
   </data>
   <data name="DocumentEditor_ScreenTip" xml:space="preserve">
-       <value>Texto da dica de tela</value>
-</data>
-<data name="DocumentEditor_KeepSource" xml:space="preserve">
-       <value>Manter a formatação de origem</value>
-</data>
-<data name="DocumentEditor_DestinationFormat" xml:space="preserve">
-       <value>Corresponder a formatação de destino</value>
-</data>
-<data name="DocumentEditor_CommentsOnly" xml:space="preserve">
-       <value>Você só pode inserir comentários nesta região.</value>
-</data>
-<data name="DocumentEditor_RowRange" xml:space="preserve">
-       <value>O número de linhas deve estar entre 1 e 32767.</value>
-</data>
-<data name="DocumentEditor_ColumnRange" xml:space="preserve">
-       <value>O número de colunas deve estar entre 1 e 63.</value>
-</data>
-<data name="DocumentEditor_Information" xml:space="preserve">
-       <value>Em formação</value>
-</data>
-<data name="DocumentEditor_Dot" xml:space="preserve">
-       <value>Ponto</value>
-</data>
-<data name="DocumentEditor_DashSmallGap" xml:space="preserve">
-       <value>Traço Pequeno Espaço</value>
-</data>
-<data name="DocumentEditor_DashDot" xml:space="preserve">
-       <value>Traço Ponto</value>
-</data>
-<data name="DocumentEditor_ThinThickSmallGap" xml:space="preserve">
-       <value>Fina Grosso Pequeno Espaço</value>
-</data>
-<data name="DocumentEditor_ThickThinSmallGap" xml:space="preserve">
-       <value>Espessura Fina Pequena Abertura</value>
-</data>
-<data name="DocumentEditor_ThickThinMediumGap" xml:space="preserve">
-       <value>Espaço Médio Fino Grosso</value>
-</data>
-<data name="DocumentEditor_ThickThinLargeGap" xml:space="preserve">
-       <value>Lacuna Grossa Fina Grande</value>
-</data>
-<data name="DocumentEditor_SingleWavy" xml:space="preserve">
-       <value>Único Ondulado</value>
-</data>
-<data name="DocumentEditor_DoubleWavy" xml:space="preserve">
-       <value>Duplo Ondulado</value>
-</data>
-<data name="DocumentEditor_Inset" xml:space="preserve">
-       <value>Inserir</value>
-</data>
-<data name="DocumentEditor_DashLargeGap" xml:space="preserve">
-       <value>Grande intervalo do traço</value>
-</data>
-<data name="DocumentEditor_DashDotDot" xml:space="preserve">
-       <value>Traço Ponto Ponto</value>
-</data>
-<data name="DocumentEditor_Triple" xml:space="preserve">
-       <value>Triplo</value>
-</data>
-<data name="DocumentEditor_ThinThickThinSmallGap" xml:space="preserve">
-       <value>Fina Grossa Fina Pequena Abertura</value>
-</data>
-<data name="DocumentEditor_ThinThickThinMediumGap" xml:space="preserve">
-       <value>Fina Grossa Fina Média Gap</value>
-</data>
-<data name="DocumentEditor_ThinThickThinLargeGap" xml:space="preserve">
-       <value>Fina Grossa Fina Grande Abertura</value>
-</data>
-<data name="DocumentEditor_DashDotStroked" xml:space="preserve">
-       <value>Traço Ponto Traçado</value>
-</data>
-<data name="DocumentEditor_Engrave3D" xml:space="preserve">
-       <value>Gravar 3D</value>
-</data>
-<data name="DocumentEditor_Thick" xml:space="preserve">
-       <value>Grosso</value>
-</data>
-<data name="DocumentEditor_Outset" xml:space="preserve">
-       <value>Início</value>
-</data>
-<data name="DocumentEditor_Emboss3D" xml:space="preserve">
-       <value>Emboss3D</value>
-</data>
-<data name="DocumentEditor_ThinThickLargeGap" xml:space="preserve">
-       <value>Fina Grossa Grande Abertura</value>
-</data>
-<data name="DocumentEditor_ThinThickMediumGap" xml:space="preserve">
-       <value>Espaço Médio Fino Grosso</value>
-</data>
-<data name="DocumentEditor_RegularText" xml:space="preserve">
-       <value>Texto normal</value>
-</data>
-<data name="DocumentEditor_Date" xml:space="preserve">
-       <value>Encontro: Data</value>
-</data>
-<data name="DocumentEditor_Uppercase" xml:space="preserve">
-       <value>Maiúsculas</value>
-</data>
-<data name="DocumentEditor_Lowercase" xml:space="preserve">
-       <value>Minúsculas</value>
-</data>
-<data name="DocumentEditor_FirstCapital" xml:space="preserve">
-       <value>Primeira Capital</value>
-</data>
-<data name="DocumentEditor_Titlecase" xml:space="preserve">
-       <value>Título</value>
-</data>
-<data name="DocumentEditor_MoveFrom" xml:space="preserve">
-       <value>Mover-se a partir de</value>
-</data>
-<data name="DocumentEditor_MoveTo" xml:space="preserve">
-       <value>Mover para</value>
-</data>
-<data name="DocumentEditor_Px" xml:space="preserve">
-       <value>px</value>
-</data>
-	<data name="DocumentEditor_ReadOnlyProtection" xml:space="preserve">
-       <value>Você pode editar nesta região.</value>
-</data>
-<data name="DocumentEditorContainer_RegularTooltip" xml:space="preserve">
-       <value>Regular</value>
-</data>
-<data name="DocumentEditorContainer_BoldItalicTooltip" xml:space="preserve">
-       <value>Negrito itálico</value>
-</data>
+    <value>Texto da dica de tela</value>
+  </data>
+  <data name="DocumentEditor_KeepSource" xml:space="preserve">
+    <value>Manter a formatação de origem</value>
+  </data>
+  <data name="DocumentEditor_DestinationFormat" xml:space="preserve">
+    <value>Corresponder a formatação de destino</value>
+  </data>
+  <data name="DocumentEditor_CommentsOnly" xml:space="preserve">
+    <value>Você só pode inserir comentários nesta região.</value>
+  </data>
+  <data name="DocumentEditor_RowRange" xml:space="preserve">
+    <value>O número de linhas deve estar entre 1 e 32767.</value>
+  </data>
+  <data name="DocumentEditor_ColumnRange" xml:space="preserve">
+    <value>O número de colunas deve estar entre 1 e 63.</value>
+  </data>
+  <data name="DocumentEditor_Information" xml:space="preserve">
+    <value>Em formação</value>
+  </data>
+  <data name="DocumentEditor_Dot" xml:space="preserve">
+    <value>Ponto</value>
+  </data>
+  <data name="DocumentEditor_DashSmallGap" xml:space="preserve">
+    <value>Traço Pequeno Espaço</value>
+  </data>
+  <data name="DocumentEditor_DashDot" xml:space="preserve">
+    <value>Traço Ponto</value>
+  </data>
+  <data name="DocumentEditor_ThinThickSmallGap" xml:space="preserve">
+    <value>Fina Grosso Pequeno Espaço</value>
+  </data>
+  <data name="DocumentEditor_ThickThinSmallGap" xml:space="preserve">
+    <value>Espessura Fina Pequena Abertura</value>
+  </data>
+  <data name="DocumentEditor_ThickThinMediumGap" xml:space="preserve">
+    <value>Espaço Médio Fino Grosso</value>
+  </data>
+  <data name="DocumentEditor_ThickThinLargeGap" xml:space="preserve">
+    <value>Lacuna Grossa Fina Grande</value>
+  </data>
+  <data name="DocumentEditor_SingleWavy" xml:space="preserve">
+    <value>Único Ondulado</value>
+  </data>
+  <data name="DocumentEditor_DoubleWavy" xml:space="preserve">
+    <value>Duplo Ondulado</value>
+  </data>
+  <data name="DocumentEditor_Inset" xml:space="preserve">
+    <value>Inserir</value>
+  </data>
+  <data name="DocumentEditor_DashLargeGap" xml:space="preserve">
+    <value>Grande intervalo do traço</value>
+  </data>
+  <data name="DocumentEditor_DashDotDot" xml:space="preserve">
+    <value>Traço Ponto Ponto</value>
+  </data>
+  <data name="DocumentEditor_Triple" xml:space="preserve">
+    <value>Triplo</value>
+  </data>
+  <data name="DocumentEditor_ThinThickThinSmallGap" xml:space="preserve">
+    <value>Fina Grossa Fina Pequena Abertura</value>
+  </data>
+  <data name="DocumentEditor_ThinThickThinMediumGap" xml:space="preserve">
+    <value>Fina Grossa Fina Média Gap</value>
+  </data>
+  <data name="DocumentEditor_ThinThickThinLargeGap" xml:space="preserve">
+    <value>Fina Grossa Fina Grande Abertura</value>
+  </data>
+  <data name="DocumentEditor_DashDotStroked" xml:space="preserve">
+    <value>Traço Ponto Traçado</value>
+  </data>
+  <data name="DocumentEditor_Engrave3D" xml:space="preserve">
+    <value>Gravar 3D</value>
+  </data>
+  <data name="DocumentEditor_Thick" xml:space="preserve">
+    <value>Grosso</value>
+  </data>
+  <data name="DocumentEditor_Outset" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="DocumentEditor_Emboss3D" xml:space="preserve">
+    <value>Emboss3D</value>
+  </data>
+  <data name="DocumentEditor_ThinThickLargeGap" xml:space="preserve">
+    <value>Fina Grossa Grande Abertura</value>
+  </data>
+  <data name="DocumentEditor_ThinThickMediumGap" xml:space="preserve">
+    <value>Espaço Médio Fino Grosso</value>
+  </data>
+  <data name="DocumentEditor_RegularText" xml:space="preserve">
+    <value>Texto normal</value>
+  </data>
+  <data name="DocumentEditor_Date" xml:space="preserve">
+    <value>Encontro: Data</value>
+  </data>
+  <data name="DocumentEditor_Uppercase" xml:space="preserve">
+    <value>Maiúsculas</value>
+  </data>
+  <data name="DocumentEditor_Lowercase" xml:space="preserve">
+    <value>Minúsculas</value>
+  </data>
+  <data name="DocumentEditor_FirstCapital" xml:space="preserve">
+    <value>Primeira Capital</value>
+  </data>
+  <data name="DocumentEditor_Titlecase" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="DocumentEditor_MoveFrom" xml:space="preserve">
+    <value>Mover-se a partir de</value>
+  </data>
+  <data name="DocumentEditor_MoveTo" xml:space="preserve">
+    <value>Mover para</value>
+  </data>
+  <data name="DocumentEditor_Px" xml:space="preserve">
+    <value>px</value>
+  </data>
+  <data name="DocumentEditor_ReadOnlyProtection" xml:space="preserve">
+    <value>Você pode editar nesta região.</value>
+  </data>
+  <data name="DocumentEditorContainer_RegularTooltip" xml:space="preserve">
+    <value>Regular</value>
+  </data>
+  <data name="DocumentEditorContainer_BoldItalicTooltip" xml:space="preserve">
+    <value>Negrito itálico</value>
+  </data>
   <data name="DocumentEditorContainer_New" xml:space="preserve">
     <value>Novo</value>
   </data>
@@ -5182,7 +5182,7 @@
     <value>Layout da Web</value>
   </data>
   <data name="DocumentEditorContainer_ToggleBetweenTheInternalClipboardAndSystemClipboard" xml:space="preserve">
-    <value>Alterne entre a área de transferência interna e a área de transferência do sistema. &#xD; O acesso à área de transferência do sistema por meio de script é negado devido à política de segurança dos navegadores. &#xD; 1. Você pode ativar a área de transferência interna para cortar, copiar e colar dentro do componente.&#xD;2. Você pode usar os atalhos do teclado (Ctrl + X, Ctrl + C e Ctrl + V) para cortar , copie e cole com a área de transferência do sistema.</value>
+    <value>Alterne entre a área de transferência interna e a área de transferência do sistema.  O acesso à área de transferência do sistema por meio de script é negado devido à política de segurança dos navegadores.  1. Você pode ativar a área de transferência interna para cortar, copiar e colar dentro do componente.2. Você pode usar os atalhos do teclado (Ctrl + X, Ctrl + C e Ctrl + V) para cortar , copie e cole com a área de transferência do sistema.</value>
   </data>
   <data name="DocumentEditorContainer_TextForm" xml:space="preserve">
     <value>Formulário de texto</value>
